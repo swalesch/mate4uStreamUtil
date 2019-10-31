@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         New Userscript
+// @name         99dmgActions
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Show only the Map Vote on a 99dmg match site.
 // @author       Hive
 // @match        https://csgo.99damage.de/de/leagues/matches/*
