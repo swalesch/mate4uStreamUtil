@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         99dmgActions
 // @namespace    http://tampermonkey.net/
-// @version      0.7
+// @version      0.8
 // @description  Show only the Map Vote on a 99dmg match site.
 // @author       Hive
 // @match        https://csgo.99damage.de/de/leagues/matches/*
@@ -29,7 +29,7 @@ position: absolute;
 width: 40px;
 height: 101px;
 border-bottom: 6px solid blue;
--webkit-transform: translateX(94px) translateY(26px)rotate(45deg);
+-webkit-transform: translateX(98px) translateY(26px)rotate(45deg);
 position: absolute;
 }
 .checkmark2 {
@@ -96,11 +96,11 @@ position: absolute;
                     if(timer !=null){
                         timer.style.color = "#fff";
                     }
+                    document.getElementById('mapvote-d-team1').style.display = 'none';
+                    document.getElementById('mapvote-d-team2').style.display = 'none';
 
                     if(doOnce == 0){
                         doOnce=1;
-                        document.getElementById('mapvote-d-team1').style.display = 'none';
-                        document.getElementById('mapvote-d-team2').style.display = 'none';
                         moveAndShowVote();
                     }
                 }
@@ -192,7 +192,6 @@ position: absolute;
              name: 'de_inferno',
              image: 'https://www.csgodatabase.com/images/pins/Inferno_Pin.png',
              size:"200px 200px"},
-
          {
              name: 'de_mirage',
              image: 'https://www.csgodatabase.com/images/pins/Mirage_Pin.png',
