@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         99dmgActions
 // @namespace    http://tampermonkey.net/
-// @version      0.8
+// @version      0.9
 // @description  Show only the Map Vote on a 99dmg match site.
 // @author       Hive
 // @match        https://csgo.99damage.de/de/leagues/matches/*
@@ -14,28 +14,28 @@
 .cross1 {
 width: 260px;
 height: 100px;
-border-bottom: 4px solid red;
+border-bottom: 8px solid red;
 -webkit-transform: translateX(10px) translateY(10px) rotate(45deg);
 position: absolute;
 }
 .cross2 {
 width: 260px;
 height: 100px;
-border-bottom: 4px solid red;
+border-bottom: 8px solid red;
 -webkit-transform: translateX(-70px) translateY(10px)rotate(-45deg);
 position: absolute;
 }
 .checkmark1 {
 width: 40px;
 height: 101px;
-border-bottom: 6px solid blue;
+border-bottom: 12px solid blue;
 -webkit-transform: translateX(98px) translateY(26px)rotate(45deg);
 position: absolute;
 }
 .checkmark2 {
 width: 80px;
 height: 101px;
-border-bottom: 6px solid blue;
+border-bottom: 12px solid blue;
 -webkit-transform: translateX(43px) translateY(14px) rotate(-45deg);
 position: absolute;
 }
