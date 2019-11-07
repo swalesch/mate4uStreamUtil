@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         99dmgActions
 // @namespace    http://tampermonkey.net/
-// @version      0.10
+// @version      0.11
 // @description  Show only the Map Vote on a 99dmg match site.
 // @author       Hive
 // @match        https://csgo.99damage.de/de/leagues/matches/*
@@ -200,6 +200,7 @@ to { -webkit-filter: grayscale(100%);  }
     function changeFinalOrder(){
         var mapvote = document.getElementById('mapvote');
         mapvote.getElementsByTagName('ul')[0].append(mapvote.getElementsByTagName('li')[0]);
+        mapvote.getElementsByTagName('li')[1].style.marginLeft = "700px";
     }
 
     var maps =
