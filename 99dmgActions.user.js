@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         99dmgActions
 // @namespace    http://tampermonkey.net/
-// @version      0.9
+// @version      0.10
 // @description  Show only the Map Vote on a 99dmg match site.
 // @author       Hive
 // @match        https://csgo.99damage.de/de/leagues/matches/*
@@ -38,6 +38,15 @@ height: 101px;
 border-bottom: 12px solid blue;
 -webkit-transform: translateX(43px) translateY(14px) rotate(-45deg);
 position: absolute;
+}
+.grey {
+-webkit-animation:greyFrames normal forwards ease-in-out;
+-webkit-animation-duration: 4s;
+}
+
+@-webkit-keyframes greyFrames {
+from  { -webkit-filter: grayscale(0%);  }
+to { -webkit-filter: grayscale(100%);  }
 }
 `);
 
@@ -114,6 +123,7 @@ position: absolute;
                 console.log("look for vote end");
                 if(document.getElementById('mapvote')!=null && document.getElementsByClassName('mapvote-maps-done').length != 0){
                     changeImage();
+                    changeFinalOrder()
                     clearInterval(intervalAfterVote);
                 }
             }, 100);
@@ -128,10 +138,13 @@ position: absolute;
             }, 100);
 
             var intervalBanned = setInterval(() => {
-                console.log("look for banned");
+                console.log("look for banned and picked");
                 if(document.getElementById('mapvote')!=null && document.getElementById('mapvote').getElementsByClassName('banned').length != 0){
                     Array.prototype.slice.call(document.getElementById('mapvote').getElementsByClassName('banned')).forEach((item) => {
-                        item.innerHTML = '<div class="cross1"></div><div class="cross2"></div>'
+                        if(!item.classList.contains("grey")){
+                            item.classList.add("grey");
+                            item.innerHTML = '<div class="cross1"></div><div class="cross2"></div>'
+                        }
                     });
                 }
                 if(document.getElementById('mapvote')!=null && document.getElementById('mapvote').getElementsByClassName('picked').length != 0){
@@ -148,6 +161,7 @@ position: absolute;
         }else{
             moveAndShowVote();
             changeImage();
+            changeFinalOrder()
         }
     }
 
@@ -181,6 +195,11 @@ position: absolute;
             }
         }
         return null;
+    }
+
+    function changeFinalOrder(){
+        var mapvote = document.getElementById('mapvote');
+        mapvote.getElementsByTagName('ul')[0].append(mapvote.getElementsByTagName('li')[0]);
     }
 
     var maps =
