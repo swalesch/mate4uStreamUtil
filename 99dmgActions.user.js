@@ -1,13 +1,12 @@
 // ==UserScript==
 // @name         99dmgActions
 // @namespace    http://tampermonkey.net/
-// @version      0.12
+// @version      0.13
 // @description  Show only the Map Vote on a 99dmg match site.
 // @author       Hive
 // @match        https://csgo.99damage.de/de/leagues/matches/*
 // @grant        GM_addStyle
 // ==/UserScript==
-
 (function() {
     'use strict';
     GM_addStyle ( `
@@ -151,10 +150,16 @@ background-position: center;
         }
     }
 
+
+
     function moveAndShowVote(){
         var mapvote = document.getElementById('mapvote');
         document.body.append(mapvote);
         document.body.lastChild.style.display = 'block';
+        mapvote.style.marginTop = "300px";
+        document.window.onbeforeunload = function() {
+                    return "Dude, are you sure you want to leave? Think of the kittens!";
+                }
     }
 
     function changeImage(){
@@ -221,7 +226,7 @@ background-position: center;
          {
              name: 'de_vertigo',
              image: 'https://dieherrschaft.de/files/99DMG-Vote-Maps/1.1/vertigo.png',
-             size: "600px 182px"},
+             size: "600px 200px"},
          {
              name: 'de_cache',
              image: 'https://dieherrschaft.de/files/99DMG-Vote-Maps/1.1/cache.png',
