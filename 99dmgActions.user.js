@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         99dmgActions
 // @namespace    http://tampermonkey.net/
-// @version      0.11
+// @version      0.12
 // @description  Show only the Map Vote on a 99dmg match site.
 // @author       Hive
 // @match        https://csgo.99damage.de/de/leagues/matches/*
@@ -11,44 +11,31 @@
 (function() {
     'use strict';
     GM_addStyle ( `
-.cross1 {
-width: 260px;
-height: 100px;
-border-bottom: 8px solid red;
--webkit-transform: translateX(10px) translateY(10px) rotate(45deg);
-position: absolute;
-}
-.cross2 {
-width: 260px;
-height: 100px;
-border-bottom: 8px solid red;
--webkit-transform: translateX(-70px) translateY(10px)rotate(-45deg);
-position: absolute;
-}
-.checkmark1 {
-width: 40px;
-height: 101px;
-border-bottom: 12px solid blue;
--webkit-transform: translateX(98px) translateY(26px)rotate(45deg);
-position: absolute;
-}
-.checkmark2 {
-width: 80px;
-height: 101px;
-border-bottom: 12px solid blue;
--webkit-transform: translateX(43px) translateY(14px) rotate(-45deg);
-position: absolute;
-}
 .grey {
 -webkit-animation:greyFrames normal forwards ease-in-out;
--webkit-animation-duration: 4s;
+-webkit-animation-duration: 8s;
 }
 
 @-webkit-keyframes greyFrames {
-from  { -webkit-filter: grayscale(0%);  }
-to { -webkit-filter: grayscale(100%);  }
+
+0%  {
+-webkit-filter: grayscale(0%);
 }
-`);
+
+49.999% {
+background-position: left;
+}
+
+50% {
+-webkit-filter: grayscale(100%);
+background-position: center;
+}
+
+100%  {
+-webkit-filter: grayscale(0%);
+background-position: center;
+}
+}`);
 
     var li = document.createElement('li');
     li.setAttribute("class", "");
@@ -143,14 +130,13 @@ to { -webkit-filter: grayscale(100%);  }
                     Array.prototype.slice.call(document.getElementById('mapvote').getElementsByClassName('banned')).forEach((item) => {
                         if(!item.classList.contains("grey")){
                             item.classList.add("grey");
-                            item.innerHTML = '<div class="cross1"></div><div class="cross2"></div>'
                         }
                     });
                 }
                 if(document.getElementById('mapvote')!=null && document.getElementById('mapvote').getElementsByClassName('picked').length != 0){
                     Array.prototype.slice.call(document.getElementById('mapvote').getElementsByClassName('picked')).forEach((item) => {
                         item.style.opacity = "1";
-                        item.innerHTML = '<div class="checkmark1"></div><div class="checkmark2"></div>'
+                        item.style.backgroundPosition = "right"
                     });
                 }
                 if(document.getElementsByClassName('mapvote-maps-done').length != 0){
@@ -179,6 +165,7 @@ to { -webkit-filter: grayscale(100%);  }
                 var mapItem = findObjectByAttribute(maps,'name',item.innerHTML);
                 item.style.backgroundImage = "url("+mapItem.image+")";
                 item.style.backgroundSize = mapItem.size;
+                item.style.backgroundPosition = "left"
                 item.style.width = "200px";
                 item.style.height = "200px";
                 item.style.border = "none";
@@ -199,46 +186,49 @@ to { -webkit-filter: grayscale(100%);  }
 
     function changeFinalOrder(){
         var mapvote = document.getElementById('mapvote');
-        mapvote.getElementsByTagName('ul')[0].append(mapvote.getElementsByTagName('li')[0]);
-        mapvote.getElementsByTagName('li')[1].style.marginLeft = "700px";
+        mapvote.getElementsByTagName('li')[1].style.float = "left"
+        mapvote.getElementsByTagName('li')[1].style.marginLeft = "5px"
+        mapvote.getElementsByTagName('li')[0].style.float = "right"
+        mapvote.getElementsByTagName('li')[0].style.marginRight = "5px"
     }
 
+    //tripple image needed, each same size; left normal, center banned, right pick
     var maps =
         [{
             name: 'de_dust2',
-            image: 'https://www.csgodatabase.com/images/pins/Dust_II_Pin.png',
-            size:"200px 200px"},
+            image: 'https://dieherrschaft.de/files/99DMG-Vote-Maps/1.1/d2.png',
+            size: "600px 200px"},
          {
              name: 'de_inferno',
-             image: 'https://www.csgodatabase.com/images/pins/Inferno_Pin.png',
-             size:"200px 200px"},
+             image: 'https://dieherrschaft.de/files/99DMG-Vote-Maps/1.1/infe.png',
+             size: "600px 200px"},
          {
              name: 'de_mirage',
-             image: 'https://www.csgodatabase.com/images/pins/Mirage_Pin.png',
-             size:"200px 200px"},
+             image: 'https://dieherrschaft.de/files/99DMG-Vote-Maps/1.1/mirage.png',
+             size: "600px 200px"},
          {
              name: 'de_nuke',
-             image: 'https://www.csgodatabase.com/images/pins/Nuke_Pin.png',
-             size:"200px 200px"},
+             image: 'https://dieherrschaft.de/files/99DMG-Vote-Maps/1.1/nuke.png',
+             size: "600px 200px"},
          {
              name: 'de_overpass',
-             image: 'https://www.csgodatabase.com/images/pins/Overpass_Pin.png',
-             size:"200px 200px"},
+             image: 'https://dieherrschaft.de/files/99DMG-Vote-Maps/1.1/over.png',
+             size: "600px 200px"},
          {
              name: 'de_train',
-             image: 'https://www.csgodatabase.com/images/pins/Train_Pin.png',
-             size:"200px 200px"},
+             image: 'https://dieherrschaft.de/files/99DMG-Vote-Maps/1.1/train.png',
+             size: "600px 200px"},
          {
              name: 'de_vertigo',
-             image: 'https://www.csgodatabase.com/images/collections/Vertigo.png',
-             size:"200px 182px"},
+             image: 'https://dieherrschaft.de/files/99DMG-Vote-Maps/1.1/vertigo.png',
+             size: "600px 182px"},
          {
              name: 'de_cache',
-             image: 'https://www.csgodatabase.com/images/pins/Cache_Pin.png',
-             size:"200px 200px"},
+             image: 'https://dieherrschaft.de/files/99DMG-Vote-Maps/1.1/cache.png',
+             size: "600px 200px"},
          {
              name: 'de_cbble',
              image: 'https://www.csgodatabase.com/images/pins/Cobblestone_Pin.png',
-             size:"200px 200px"}];
+             size: "600px 200px"}];
 
 })();
